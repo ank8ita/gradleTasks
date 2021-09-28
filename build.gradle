@@ -1,0 +1,15 @@
+task copy(type: Copy){
+    from "src"
+    into "destination"
+    include "**/**txt"
+    rename '(.*).txt', '$1.text'
+    includeEmptyDirs = false
+}
+
+task tar(type: Zip){
+    from 'destination/'
+    include '**.text'
+    archiveName "final.zip"
+    destinationDir(file('/destination/output/'))
+    dependsOn copy
+}
